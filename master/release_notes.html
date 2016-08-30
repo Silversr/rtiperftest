@@ -1,0 +1,187 @@
+<!DOCTYPE HTML><html><head><title>RTI Perftest &mdash; Release Notes 5.2.5</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 3.0.0"><link rel="stylesheet" href="css/bootstrap.min.css"><link rel="stylesheet" href="css/default.min.css"><script type="text/javascript" src="js/jquery-1.11.0.min.js"></script><script type="text/javascript" src="js/bootstrap.min.js"></script><script type="text/javascript" src="js/highlight.min.js"></script><script type="text/javascript">
+  function getHost() {
+    hostname = window.location.host;
+    if(hostname == "") {
+      hostname = "localhost:8080";
+    }
+    return hostname;
+  }
+
+  $(document).ready(function() {
+    $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+
+    $('[data-toggle]').click(function() {
+      var selector = $(this).data('target') + ' pre code';
+      $(selector).each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });
+
+    // open modal on hashes like #_action_get
+    $(window).bind('hashchange', function(e) {
+      var anchor_id = document.location.hash.substr(1); //strip #
+      var element = $('#' + anchor_id);
+
+      // do we have such element + is it a modal?  --> show it
+      if (element.length && element.hasClass('modal')) {
+        element.modal('show');
+      }
+    });
+
+    // execute hashchange on first page load
+    $(window).trigger('hashchange');
+
+    // remove url fragment on modal hide
+    $('.modal').on('hidden.bs.modal', function() {
+      if(history && history.replaceState) {
+        history.replaceState({}, '', '#');
+      }
+    });
+    document.body.innerHTML = document.body.innerHTML.replace(
+      /##HOST##/g,
+      getHost());
+  });
+  </script><style>
+  .hljs {
+    background: transparent;
+  }
+  .parent {
+    color: #FFFFF;
+  }
+  .list-group-item > .badge {
+    float: none;
+    margin-right: 6px;
+  }
+  .panel-title > .methods {
+    float: right;
+  }
+  .badge {
+    border-radius: 0;
+    text-transform: uppercase;
+    width: 70px;
+    font-weight: normal;
+    color: #f3f3f6;
+    line-height: normal;
+  }
+  .badge_get {
+    background-color: #63a8e2;
+  }
+  .badge_post {
+    background-color: #6cbd7d;
+  }
+  .badge_put {
+    background-color: #22bac4;
+  }
+  .badge_delete {
+    background-color: #d26460;
+  }
+  .list-group, .panel-group {
+    margin-bottom: 0;
+  }
+  .panel-group .panel+.panel-white {
+    margin-top: 0;
+  }
+  .panel-group .panel-white {
+    border-bottom: 1px solid #F5F5F5;
+    border-radius: 0;
+  }
+  .panel-white:last-child {
+    border-bottom-color: white;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .panel-white .panel-heading {
+    background: white;
+  }
+  .tab-pane ul {
+    padding-left: 2em;
+  }
+  .tab-pane h2 {
+    font-size: 1.2em;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ddd;
+  }
+  .tab-pane h3 {
+    font-size: 1.1em;
+  }
+  .tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+  #sidebar {
+    margin-top: 30px;
+  }
+  .top-resource-description {
+    border-bottom: 1px solid #ddd;
+    background: #fcfcfc;
+    padding: 15px 15px 0 15px;
+    margin: -15px -15px 10px -15px;
+  }
+  .resource-description {
+    border-bottom: 1px solid #fcfcfc;
+    background: #fcfcfc;
+    padding: 15px 15px 0 15px;
+    margin: -15px -15px 10px -15px;
+  }
+  .list-group .badge {
+    float: left;
+  }
+  .method_description {
+    margin-left: 85px;
+  }
+  .method_description p:last-child {
+    margin: 0;
+  }
+  .list-group-item {
+    cursor: pointer;
+  }
+  .list-group-item:hover {
+    background-color: #FFFFF;
+  }
+  .navbar-inverse {
+    background-color: #305590;
+    border-color: #305590;
+  }
+  .navbar-inverse .navbar-nav>li>a {
+    color: #f5f5f5;
+  }
+  .navbar-inverse .navbar-brand {
+    color: #f5f5f5;
+  }
+  .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #305590;
+  }
+  a {
+    color: #305590;
+  }
+  h1, .h1 {
+    color: #ec9900;
+  }
+  h3, .h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  body { margin-top: 60px; }
+  h3:before {
+    display: block;
+    content: " ";
+    margin-top: -60px;
+    height: 60px;
+    visibility: hidden;
+  }
+  code {
+    color: #ce7603;
+  }
+  h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  </style></head><body data-spy="scroll" data-target="#sidebar"><nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"><div class="container"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="index.html"><img src="img/rti_logo.png" style="vertical-align:bottom" alt="Real-Time Innovations"> <span>&nbsp;&nbsp;RTI Perftest</span></a><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav navbar-right"><li><a href="https://github.com/rticommunity/rtiperftest">GitHub</a></li><li><a href="download.html">Download</a></li><li><a href="compilation.html">Compilation</a></li><li><a href="command_line_parameters.html">Parameters</a></li><li><a href="examples.html">Examples</a></li><li><a href="release_notes.html">Release Notes</a></li></ul></div></div></nav><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Release Notes 5.2.5</h1></div><div class="page-header"><h3 id="1-Release-Notes"><a href="#1-Release-Notes">1 Release Notes</a></h3><h3 id="what-s-new-in-5-2-5">What&#39;s New in 5.2.5</h3><h4 id="platform-support-and-build-system">Platform support and build system</h4><p><em>RTI Perftest 5.2.5</em> makes use of the <em>RTI Connext DDS</em> <em>Rtiddsgen</em> tool in order to generate part of its code and also the makefile/project files used to compile that code.</p><p>Therefore, all the already generated makefiles and <em>Visual Studio</em> solutions have been removed and now the build system depends on 2 scripts: <code>build.sh</code> for Unix-based systems and <code>build.bat</code> for Windows systems.</p><p><em>RTI Perftest</em> scripts works for every platform for which <em>Rtiddsgen</em> can generate an example, except for those in which <em>Rtiddsgen</em> doesn&#39;t generate regular makefiles or <em>Visual Studio Solutions</em> but specific project files. That is the case of <em>Android</em> platforms as well as the <em>iOS</em> ones.</p><p>Certain platforms will compile with the out of-the-box code and configurations, but further tuning could be needed in order to make the application run in the specific platform. The reason is usually the memory consumption of the application or the lack of support of the platform for certain features (like a file system).</p><h4 id="improved-directory-structure">Improved directory structure</h4><p><em>RTI Perftest 5.2.5</em> directory structure has been cleaned up, having now a much more compact and consistent schema.</p><h4 id="github">Github</h4><p><em>RTI Perftest</em> development has been moved to a <em>GitHub</em> project. This will allow more frequently updates and code contributions.</p><p>The URL of the project is the following: <a href="github.com/rticommunity/rtiperftest">github.com/rticommunity/rtiperftest</a>.</p><h4 id="documentation">Documentation</h4><p>Documentation is no longer provided as a PDF document, but as <em>markdown</em> files as well as in <em>html</em> format. You will be able to access to the documentation from the <em>RTI Community</em> page, as well as from the <em>GitHub</em> project.</p><h4 id="support-for-udpv6">Support for UDPv6</h4><p>Added command line parameter to force communication via UDPv6. By specifying <code>-enableUdpv6</code> you will only communicate data by using the UDPv6 transport.</p><p>The use of this feature will imply setting the <code>NDDS_DISCOVERY_PEERS</code> environment variable to (at least) one valid IPv6 address.</p><h4 id="simplified-execution-in-vxworks-kernel-mode">Simplified execution in VxWorks kernel mode</h4><p>The execution in <em>VxWorks OS kernel mode</em> has been simplified for the user. Now the user can make use of <code>subscriber_main()</code> and <code>publisher_main()</code> and modify its content with all the parameters required for the tests.</p><h4 id="decreased-memory-requirements-for-latency-performance-test">Decreased Memory Requirements for Latency Performance Test</h4><p>The default number of iterations (samples sent by the performance test publisher side) when performing a latency test has been updated. Before, the default value was <code>100,000,000</code>. This value was used to internally allocate certain buffers, which imposed large memory requirements. The new value is <code>10,000,000</code> (10 times less).</p><h3 id="what-s-fixed-in-5-2-5">What&#39;s Fixed in 5.2.5</h3><h4 id="rti-perftest-behavior-when-using-multiple-publishers">RTI Perftest behavior when using multiple publishers</h4><p>The previous behavior specified that an <em>RTI Perftest Subscriber</em> in a scenario with multiple <em>RTI Perftest Publishers</em> would stop receiving samples and exit after receiving the last sample from the <em>RTI Perftest</em> Publisher with <code>pid=0</code>. This behavior could lead into an hang state if some <em>RTI Perftest Publishers</em> with different <code>pid</code> were still missing to send new samples.</p><p>The new behavior makes the <em>RTI Perftest Subscriber</em> wait until all the Perftest Publishers finish sending all their samples and then exit.</p><h4 id="possible-std-bad_alloc-and-segmentation-fault-in-latency-test-in-case-of-insufficient-memory">Possible <code>std::bad_alloc</code> and Segmentation Fault in Latency Test in case of insufficient memory</h4><p>When performing a latency performance test with traditional or modern C++, the test tries to allocate certain arrays of unsigned longs. These arrays can be quite large. On certain embedded platforms, due to memory limitations, this caused a <code>std::bad_alloc</code> error that was not properly captured, and a segmentation fault. This problem has been resolved. Now the performance test will inform you of the memory allocation issue and exit properly.</p><h4 id="default-max-number-of-instances-on-subscriber-side-changed-to-dds_length_unlimited-">Default Max Number of Instances on Subscriber Side Changed to <code>DDS_LENGTH_UNLIMITED</code></h4><p>In the previous release, if you did not set the maximum number of instances on the subscriber side, it would default to one instance. Therefore the samples for all instances except the first one were lost.</p><p>The new default maximum number of instances on the subscriber side has been changed from one to <code>DDS_LENGTH_UNLIMITED</code>. You can change this limit manually by setting the parameter <code>-instances &lt;number&gt;</code>.</p><h4 id="incorrect-set-for-received_message_count_max-for-big-sample-sizes-when-using-shared-memory">Incorrect set for received_message_count_max for big sample sizes when using shared memory</h4><p>When using <em>RTI Perftest</em> with large samples and enabling shared memory we could get into the following error:</p><pre><code>Large data settings enabled (-dataLen &gt; 63000).
+[D0001|ENABLE]NDDS_Transport_Shmem_Property_verify:received_message_count_max &lt; 1
+[D0001|ENABLE]NDDS_Transport_Shmem_newI:Invalid transport properties.
+</code></pre><p>This problem has been fixed so <code>received_message_count_max</code> is now <code>1</code> in such case.</p><h3 id="known-issues">Known Issues</h3><h4 id="rti-perftest-5-2-5-version-compatibility">RTI Perftest 5.2.5 version compatibility</h4><p><em>RTI Perftest 5.2.5</em> build system makes use of specific features from <em>RTI Connext DDS 5.2.5 Code Generator (rtiddsgen)</em> in order to generate the makefile/project files used to compile. This implies the break of compatibility with previous <em>RTI Connext DDS</em> releases.</p><h4 id="compiling-manually-on-windows-when-using-the-rti-security-plugin">Compiling manually on Windows when using the <em>RTI Security</em> plugin</h4><p><em>rtiddsgen</em> generated solutions for Windows allow 4 different configurations:</p><ul><li>Debug</li><li>Debug DLL</li><li>Release</li><li>Release DLL</li></ul><p>However, <em>RTI Perftest 5.2.5</em> new build system is focused to only compile one of those modes at a time when using the <code>-secure</code> option. You can still select which one will be used by using the <code>-debug</code> and <code>-dynamic</code> flags.</p></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#1-Release-Notes">1 Release Notes</a></li></ul></div></div></div></div></body></html>

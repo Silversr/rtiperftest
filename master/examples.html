@@ -1,0 +1,216 @@
+<!DOCTYPE HTML><html><head><title>RTI Perftest &mdash; Command-Line Examples</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 3.0.0"><link rel="stylesheet" href="css/bootstrap.min.css"><link rel="stylesheet" href="css/default.min.css"><script type="text/javascript" src="js/jquery-1.11.0.min.js"></script><script type="text/javascript" src="js/bootstrap.min.js"></script><script type="text/javascript" src="js/highlight.min.js"></script><script type="text/javascript">
+  function getHost() {
+    hostname = window.location.host;
+    if(hostname == "") {
+      hostname = "localhost:8080";
+    }
+    return hostname;
+  }
+
+  $(document).ready(function() {
+    $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+
+    $('[data-toggle]').click(function() {
+      var selector = $(this).data('target') + ' pre code';
+      $(selector).each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });
+
+    // open modal on hashes like #_action_get
+    $(window).bind('hashchange', function(e) {
+      var anchor_id = document.location.hash.substr(1); //strip #
+      var element = $('#' + anchor_id);
+
+      // do we have such element + is it a modal?  --> show it
+      if (element.length && element.hasClass('modal')) {
+        element.modal('show');
+      }
+    });
+
+    // execute hashchange on first page load
+    $(window).trigger('hashchange');
+
+    // remove url fragment on modal hide
+    $('.modal').on('hidden.bs.modal', function() {
+      if(history && history.replaceState) {
+        history.replaceState({}, '', '#');
+      }
+    });
+    document.body.innerHTML = document.body.innerHTML.replace(
+      /##HOST##/g,
+      getHost());
+  });
+  </script><style>
+  .hljs {
+    background: transparent;
+  }
+  .parent {
+    color: #FFFFF;
+  }
+  .list-group-item > .badge {
+    float: none;
+    margin-right: 6px;
+  }
+  .panel-title > .methods {
+    float: right;
+  }
+  .badge {
+    border-radius: 0;
+    text-transform: uppercase;
+    width: 70px;
+    font-weight: normal;
+    color: #f3f3f6;
+    line-height: normal;
+  }
+  .badge_get {
+    background-color: #63a8e2;
+  }
+  .badge_post {
+    background-color: #6cbd7d;
+  }
+  .badge_put {
+    background-color: #22bac4;
+  }
+  .badge_delete {
+    background-color: #d26460;
+  }
+  .list-group, .panel-group {
+    margin-bottom: 0;
+  }
+  .panel-group .panel+.panel-white {
+    margin-top: 0;
+  }
+  .panel-group .panel-white {
+    border-bottom: 1px solid #F5F5F5;
+    border-radius: 0;
+  }
+  .panel-white:last-child {
+    border-bottom-color: white;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .panel-white .panel-heading {
+    background: white;
+  }
+  .tab-pane ul {
+    padding-left: 2em;
+  }
+  .tab-pane h2 {
+    font-size: 1.2em;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ddd;
+  }
+  .tab-pane h3 {
+    font-size: 1.1em;
+  }
+  .tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+  #sidebar {
+    margin-top: 30px;
+  }
+  .top-resource-description {
+    border-bottom: 1px solid #ddd;
+    background: #fcfcfc;
+    padding: 15px 15px 0 15px;
+    margin: -15px -15px 10px -15px;
+  }
+  .resource-description {
+    border-bottom: 1px solid #fcfcfc;
+    background: #fcfcfc;
+    padding: 15px 15px 0 15px;
+    margin: -15px -15px 10px -15px;
+  }
+  .list-group .badge {
+    float: left;
+  }
+  .method_description {
+    margin-left: 85px;
+  }
+  .method_description p:last-child {
+    margin: 0;
+  }
+  .list-group-item {
+    cursor: pointer;
+  }
+  .list-group-item:hover {
+    background-color: #FFFFF;
+  }
+  .navbar-inverse {
+    background-color: #305590;
+    border-color: #305590;
+  }
+  .navbar-inverse .navbar-nav>li>a {
+    color: #f5f5f5;
+  }
+  .navbar-inverse .navbar-brand {
+    color: #f5f5f5;
+  }
+  .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #305590;
+  }
+  a {
+    color: #305590;
+  }
+  h1, .h1 {
+    color: #ec9900;
+  }
+  h3, .h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  body { margin-top: 60px; }
+  h3:before {
+    display: block;
+    content: " ";
+    margin-top: -60px;
+    height: 60px;
+    visibility: hidden;
+  }
+  code {
+    color: #ce7603;
+  }
+  h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  </style></head><body data-spy="scroll" data-target="#sidebar"><nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"><div class="container"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="index.html"><img src="img/rti_logo.png" style="vertical-align:bottom" alt="Real-Time Innovations"> <span>&nbsp;&nbsp;RTI Perftest</span></a><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav navbar-right"><li><a href="https://github.com/rticommunity/rtiperftest">GitHub</a></li><li><a href="download.html">Download</a></li><li><a href="compilation.html">Compilation</a></li><li><a href="command_line_parameters.html">Parameters</a></li><li><a href="examples.html">Examples</a></li><li><a href="release_notes.html">Release Notes</a></li></ul></div></div></nav><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Command-Line Examples</h1></div><div class="page-header"><h3 id="1-Command-Line-Examples"><a href="#1-Command-Line-Examples">1 Command-Line Examples</a></h3><p>The followings are examples of how to run the performance test for different use cases.</p><ul><li><p>The tests below print final results only; if you want to see intermediate values, remove the <code>-noprint</code> argument from the command line.</p></li><li><p>If you are running on 2 unequal machines, i.e., one machine is faster (has better processors) than another, you will see better performance by running the Publisher on the slower machine.</p></li><li><p>To measure CPU usage while running these tests, use "top" or a similar utility.</p></li></ul><h3 id="1-to-1-multicast-best-latency-as-a-function-of-message-size">1-to-1, Multicast, Best Latency as a Function of Message Size</h3><ul><li>Publisher:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -nic &lt;ipaddr&gt; -domain &lt;ID&gt; -latencyCount 1 -dataLen &lt;length&gt; -latencyTest -multicast -executionTime 100
+</code></pre><ul><li>Subscriber:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -nic &lt;ipaddr&gt; -domain &lt;ID&gt; -multicast
+</code></pre><p>Modify <code>-dataLen &lt;bytes&gt;</code> to see latencies for different data sizes. Set <code>-executionTime &lt;seconds&gt;</code> to be &gt;=100 for statistically better results.</p><h3 id="1-to-1-multicast-maximum-throughput-as-a-function-of-message-size-with-batching-">1-to-1, Multicast, Maximum Throughput as a Function of Message Size (with Batching)</h3><ul><li>Publisher:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -nic &lt;ipaddr&gt; -dataLen &lt;length&gt; -batchSize &lt;bytes&gt; -sendQueueSize &lt;number&gt; -multicast -executionTime 100
+</code></pre><ul><li>Subscriber:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noprint -nic &lt;ipaddr&gt; -multicast
+</code></pre><p>To achieve maximum throughput, start by setting See <code>-batchSize &lt;bytes&gt;</code> to <code>6400</code>, then increase the size to see if you get better throughput.</p><p>The largest valid batch size is <code>63000 bytes</code>.</p><p>For maximum throughput, start by setting <code>-sendQueueSize &lt;number&gt;</code> to <code>30</code>; the best value will usually be between <code>30-50</code>.</p><p>Note: For larger data sizes (<code>8000 bytes</code> and higher), batching often does not improve throughput, at least for 1-Gig networks.</p><h3 id="1-to-1-multicast-latency-vs-throughput-for-200-byte-messages-with-batching-">1-to-1, Multicast, Latency vs. Throughput for 200-byte Messages (with Batching)</h3><ul><li>Publisher:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -nic &lt;ipaddr&gt; -dataLen 200 -batchSize &lt;bytes&gt; -sendQueueSize &lt;number&gt; -spin &lt;count&gt; -multicast -executionTime 100
+</code></pre><ul><li>Subscriber</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -nic &lt;ipaddr&gt; -multicast
+</code></pre><p>To adjust throughput, experiment with the value of <code>-spin &lt;count&gt;</code>. For example, to get a rate of 10,000 messages/sec, use <code>-spin 20000</code> to see the resulting rate, then adjust up or down as needed.</p><h3 id="1-to-1-multicast-reliable-udpv4-all-sizes">1-to-1, Multicast, Reliable UDPv4, All Sizes</h3><ul><li>Publisher:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -sendQueueSize 32 -latencyCount 10000 -scan -multicast
+</code></pre><ul><li>Subscriber:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -multicast
+</code></pre><h3 id="1-to-1-unicast-best-effort-udpv4-1-size">1-to-1, Unicast, Best-Effort, UDPv4, 1 Size</h3><ul><li>Publisher:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -sendQueueSize 32  -latencyCount 1000 -dataLen 1024 -bestEffort -executionTime 100
+</code></pre><ul><li>Subscriber</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -dataLen 1024 -bestEffort
+</code></pre><h3 id="1-to-1-multicast-reliable-udpv4-batching-enabled">1-to-1, Multicast, Reliable, UDPv4, Batching Enabled</h3><ul><li>Publisher:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -sendQueueSize 32 -latencyCount 1000 -dataLen 200 -batchSize 6400  -multicast -executionTime 100
+</code></pre><ul><li>Subscriber:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -dataLen 200 -batchSize 6400 -multicast
+</code></pre><h3 id="1-to-2-multicast-reliable-udpv4">1-to-2, Multicast, Reliable, UDPv4</h3><ul><li>Publisher:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -pidMultiPubTest 0 -sendQueueSize 32 -numSubscribers 2 -latencyCount 1000 -dataLen 200 -multicast -executionTime 100
+</code></pre><ul><li>Subscriber 1:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -dataLen 200 -batchSize 6400 -multicast
+</code></pre><ul><li>Subscriber 2:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -dataLen 200 -batchSize 6400 -multicast
+</code></pre><h3 id="2-to-1-multicast-reliable-udpv4">2-to-1, Multicast, Reliable, UDPv4</h3><ul><li>Publisher 1:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -pidMultiPubTest 0 -sendQueueSize 32 -numSubscribers 1 -latencyCount 1000 -dataLen 200 -multicast -executionTime 100
+</code></pre><ul><li>Publisher 2:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -pidMultiPubTest 1 -sendQueueSize 32 -numSubscribers 1 -latencyCount 1000 -dataLen 200 -multicast -executionTime 100
+</code></pre><ul><li>Subscriber:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -dataLen 200 -numPublishers 2 -sidMultiSubTest 0 -multicast
+</code></pre><h3 id="1-to-1-unicast-reliable-udpv4-using-security-signing-packages-encrypting-data">1-to-1, Unicast, Reliable, UDPv4, Using Security: Signing Packages, Encrypting Data</h3><ul><li>Publisher:</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -pub -noPrint -dataLen 63000 -secureSign -secureEncryptData -executionTime 100
+</code></pre><ul><li>Subscriber</li></ul><pre><code>bin/&lt;arch&gt;/Release/perftest_cpp -sub -noPrint -dataLen 63000 -secureSign -secureEncryptData
+</code></pre></div><div class="page-header"><h3 id="2-Output-Example"><a href="#2-Output-Example">2 Output Example</a></h3><p>The following is an example of the expected output from the performance test.</p><ul><li>Publisher:</li></ul><pre><code>&gt; perftest_cpp -pub -noPrint -domain 27 -sendQueueSize 50 -latencyCount 10000 -scan Waiting to discover 1 subscribers... 
+Waiting for subscribers announcement ...
+Publishing data...
+Length: 32 Latency: Ave 396 us Std 48.9 us Min 83 us Max 538 us 50% 401 us 90% 459 us 99% 510 us 99.99% 538 us 99.9999% 538 us
+Length: 64 Latency: Ave 399 us Std 53.1 us Min 88 us Max 1062 us 50% 403 us 90% 461 us 99% 537 us 99.99% 1062 us 99.9999% 1062 us
+...
+</code></pre><ul><li>Subscriber</li></ul><pre><code>&gt; bin/i86Linux2.6gcc3.4.3/Release/perftest_cpp -sub -noPrint -domain 27
+Waiting to discover 1 publishers ...
+Waiting for data...
+Length: 32 Packets: 10000000 Packets/s(ave): 47913 Mbps(ave): 12.3 Lost: 0
+Length: 64 Packets: 10000000 Packets/s(ave): 47580 Mbps(ave): 24.4 Lost: 0
+...
+</code></pre></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#1-Command-Line-Examples">1 Command-Line Examples</a></li><li><a href="#2-Output-Example">2 Output Example</a></li></ul></div></div></div></div></body></html>
