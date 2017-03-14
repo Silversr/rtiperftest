@@ -1,0 +1,198 @@
+<!DOCTYPE HTML><html><head><title>RTI Perftest &mdash; Code Generation And Compilation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 3.0.0"><link rel="stylesheet" href="css/bootstrap.min.css"><link rel="stylesheet" href="css/default.min.css"><script type="text/javascript" src="js/jquery-1.11.0.min.js"></script><script type="text/javascript" src="js/bootstrap.min.js"></script><script type="text/javascript" src="js/highlight.min.js"></script><script type="text/javascript">
+      function getHost() {
+          hostname = window.location.host;
+          if(hostname == "") {
+              hostname = "localhost:8080";
+          }
+          return hostname;
+       }
+
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      document.body.innerHTML = document.body.innerHTML.replace(
+          /##HOST##/g,
+          getHost());
+      });
+  </script><style>
+  .hljs {
+    background: transparent;
+  }
+  .parent {
+    color: #FFFFF;
+  }
+  .list-group-item > .badge {
+    float: none;
+    margin-right: 6px;
+  }
+  .panel-title > .methods {
+    float: right;
+  }
+  .badge {
+    border-radius: 0;
+    text-transform: uppercase;
+    width: 70px;
+    font-weight: normal;
+    color: #f3f3f6;
+    line-height: normal;
+  }
+  .badge_get {
+    background-color: #63a8e2;
+  }
+  .badge_post {
+    background-color: #6cbd7d;
+  }
+  .badge_put {
+    background-color: #22bac4;
+  }
+  .badge_delete {
+    background-color: #d26460;
+  }
+  .list-group, .panel-group {
+    margin-bottom: 0;
+  }
+  .panel-group .panel+.panel-white {
+    margin-top: 0;
+  }
+  .panel-group .panel-white {
+    border-bottom: 1px solid #F5F5F5;
+    border-radius: 0;
+  }
+  .panel-white:last-child {
+    border-bottom-color: white;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .panel-white .panel-heading {
+    background: white;
+  }
+  .tab-pane ul {
+    padding-left: 2em;
+  }
+  .tab-pane h2 {
+    font-size: 1.2em;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ddd;
+  }
+  .tab-pane h3 {
+    font-size: 1.1em;
+  }
+  .tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+  #sidebar {
+    margin-top: 30px;
+  }
+  .top-resource-description {
+    border-bottom: 1px solid #ddd;
+    background: #fcfcfc;
+    padding: 15px 15px 0 15px;
+    margin: -15px -15px 10px -15px;
+  }
+  .resource-description {
+    border-bottom: 1px solid #fcfcfc;
+    background: #fcfcfc;
+    padding: 15px 15px 0 15px;
+    margin: -15px -15px 10px -15px;
+  }
+  .list-group .badge {
+    float: left;
+  }
+  .method_description {
+    margin-left: 85px;
+  }
+  .method_description p:last-child {
+    margin: 0;
+  }
+  .list-group-item {
+    cursor: pointer;
+  }
+  .list-group-item:hover {
+    background-color: #FFFFF;
+  }
+  .navbar-inverse {
+    background-color: #305590;
+    border-color: #305590;
+  }
+  .navbar-inverse .navbar-nav>li>a {
+    color: #f5f5f5;
+  }
+  .navbar-inverse .navbar-brand {
+    color: #f5f5f5;
+  }
+  .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #305590;
+  }
+  a {
+    color: #305590;
+  }
+  h1, .h1 {
+    color: #ec9900;
+  }
+  h3, .h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  body { margin-top: 60px; }
+  h3:before {
+    display: block;
+    content: " ";
+    margin-top: -60px;
+    height: 60px;
+    visibility: hidden;
+  }
+  code {
+    color: #ce7603;
+  }
+  h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  </style></head><body data-spy="scroll" data-target="#sidebar"><nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"><div class="container"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="index.html"><img src="img/rti_logo.png" style="vertical-align:bottom" alt="Real-Time Innovations"> <span>&nbsp;&nbsp;RTI Perftest</span></a><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav navbar-right"><li><a href="https://github.com/rticommunity/rtiperftest">GitHub</a></li><li><a href="download.html">Download</a></li><li><a href="compilation.html">Compilation</a></li><li><a href="command_line_parameters.html">Parameters</a></li><li><a href="examples.html">Examples</a></li><li><a href="release_notes.html">Release Notes</a></li></ul></div></div></nav><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Code Generation And Compilation</h1></div><div class="page-header"><h3 id="1-Code-Generation-And-Compilation"><a href="#1-Code-Generation-And-Compilation">1 Code Generation And Compilation</a></h3><h3 id="unix-systems">Unix systems</h3><p>For Unix systems, <em>RTI Perftest</em> makes use of a script in the top level directory named <code>build.sh</code>.</p><p>The purpose of <code>build.sh</code> is to, in the first place, invoke <em>RTI DDS Generator</em> (<em>Rtiddsgen</em>) in order to generate the type-code files and makefiles needed to compile a target architecture. Then, in second place, execute the makefile with the right arguments to generate the executables.</p><p>This script supports the code generation and compilation for <em>Traditional C++</em>, <em>Modern C++</em> and <em>Java</em>.</p><p>Potentially, <code>build.sh</code> can generate and compile code for every architecture supported by <em>Rtiddsgen</em> where a makefile is generated as output when the <code>-example</code> command line is specified.</p><h4 id="prerequisites">Prerequisites</h4><ul><li><p><em>RTI Connext DDS</em> should be installed in the system where the <code>build.sh</code> script is going to run. The <em>Target</em> libraries for the platform to be generated should also be installed.</p></li><li><p>The <code>$NDDSHOME</code> environment variable should be set correctly. Alternatively, <code>$NDDSHOME</code> can be passed directly to the <code>build.sh</code> script by using the <code>--nddshome &lt;PATH&gt;</code> command line option.</p></li><li><p>The <code>build.sh</code> script is written in <code>bash</code>. It is going to try to execute it from <code>/bin/bash</code>.</p></li><li><p><code>GNU make</code> is required to be accessible from the <code>$PATH</code> environment variable in order to execute the <code>makefiles</code> generated by <em>Rtiddsgen</em>. Alternatively the <code>GNU make</code> executable can be passed directly to the <code>build.sh</code> script by using the <code>--make &lt;PATH&gt;</code> command line option.</p></li><li><p>The C++ Compiler/Linker parent folders should be in the <code>$PATH</code> variable. The names of the compiler and linker are going to be determined by the makefile generated by <em>Rtiddsgen</em>. The C++ Compiler and Linker are not required if the script is set to avoid the C++ compilation by adding the <code>--skip-cpp-build</code> and <code>--skip-cpp03-build</code> command line options.</p></li><li><p>Java JDK should be available in the system and accessible from the <code>$PATH</code> environment. This is not required if the script is set to avoid the Java ByteCode generation by adding the <code>--skip-java-build</code> command line option.</p></li><li><p>If you intend to compile and test using the <em>RTI Secure Plugin</em> you will need to link against the OpenSSL libraries for your architecture.</p></li></ul><h4 id="parameters">Parameters</h4><p>The <code>build.sh</code> script accepts the following list of parameters:</p><table class="table"><thead><tr><th style="text-align:right">Parameter</th><th style="text-align:center">Required</th><th>Description</th></tr></thead><tbody><tr><td style="text-align:right">--platform</td><td style="text-align:center">Required</td><td>Architecture/Platform for which build.sh is going to compile <em>RTI Perftest</em>.</td></tr><tr><td style="text-align:right">--nddshome</td><td style="text-align:center">Optional</td><td>Path to the <em>RTI Connext DDS installation</em>. If this parameter is not present, the <code>$NDDSHOME</code> variable should be.</td></tr><tr><td style="text-align:right">--skip-java-build</td><td style="text-align:center">Optional</td><td>Avoid <code>Java ByteCode</code> generation and <code>.jar</code> creation.</td></tr><tr><td style="text-align:right">--skip-cpp-build</td><td style="text-align:center">Optional</td><td>Avoid C++ code generation and compilation.</td></tr><tr><td style="text-align:right">--skip-cpp03-build</td><td style="text-align:center">Optional</td><td>Avoid C++ New PSM code generation and compilation.</td></tr><tr><td style="text-align:right">--dynamic</td><td style="text-align:center">Optional</td><td>Compile using the RTI Connext DDS dynamic libraries. Default: Static Libraries.</td></tr><tr><td style="text-align:right">--debug</td><td style="text-align:center">Optional</td><td>Compile using the RTI Connext DDS debug libraries. Default: Release Libraries.</td></tr><tr><td style="text-align:right">--secure</td><td style="text-align:center">Optional</td><td>Enable the compilation of the Perfest code specific for security and adds the RTI Connext DDS Security Libraries in the linking step (if compiling statically). Default: Not set.</td></tr><tr><td style="text-align:right">--openssl-home</td><td style="text-align:center">Optional</td><td>Path to the openSSL home directory. Needed when compiling using the --secure option and statically.</td></tr><tr><td style="text-align:right">--make</td><td style="text-align:center">Optional</td><td>Path to the <code>GNU make</code> executable. If this parameter is not present, <code>GNU make</code> variable should be available from your <code>$PATH</code> variable.</td></tr><tr><td style="text-align:right">--java-home</td><td style="text-align:center">Optional</td><td>Path to the Java <code>JDK</code> home folder. If this parameter is not present, <code>javac</code>, <code>jar</code> and <code>java</code> executables should be available from your <code>$PATH</code> variable.</td></tr><tr><td style="text-align:right">--clean</td><td style="text-align:center">Optional</td><td>If this option is present, the <code>build.sh</code> script will clean all the generated code and binaries from previous executions.</td></tr><tr><td style="text-align:right">--help -h</td><td style="text-align:center">Optional</td><td>If this option is present, the <code>build.sh</code> script will display a help description and exit.</td></tr></tbody></table><h4 id="examples-running-build-script">Examples Running build script</h4><p>In order to build using <code>build.sh</code> you just need to invoke the script with the command line parameters desired. The following are some typical examples:</p><ul><li><p>Generation and compilation for a given architecture (<code>x64Darwin15clang7.0</code>) for C++ (Classic and new) and Java .</p><pre><code>  ./build.sh --platform x64Darwin15clang7.0
+</code></pre></li><li><p>Generation and compilation for a given architecture (<code>x64Darwin15clang7.0</code>) just for C++ (Classic and new).</p><pre><code>  ./build.sh --platform x64Darwin15clang7.0 --skip-java-build
+</code></pre></li><li><p>Generation and compilation for a given architecture (<code>x64Darwin15clang7.0</code>) for all supported languages and linking against the Dynamic + Debug libraries.</p><pre><code>  ./build.sh --platform x64Darwin15clang7.0 --dynamic --debug
+</code></pre></li><li><p>Generation and compilation for a given architecture (<code>x64Darwin15clang7.0</code>) for all supported languages, enabling the security options and linking statically (default).</p><pre><code>  ./build.sh --platform x64Darwin15clang7.0 --secure --openssl-home &lt;PATH&gt;
+</code></pre></li><li><p>Generation and compilation for a given architecture (<code>x64Darwin15clang7.0</code>) for all supported languages, enabling the security options and linking dynamically. As you can see in this case there is no need to specify the <code>--openssl-home</code> command line argument.</p><pre><code>  ./build.sh --platform x64Darwin15clang7.0 --secure --dynamic
+</code></pre></li><li><p><em>RTI Perftest</em> directory clean-up.</p><pre><code>  ./build.sh --clean
+</code></pre></li></ul><h3 id="windows-systems">Windows systems</h3><p>For Windows systems, <em>RTI Perftest</em> makes use of a script in the top level directory named <code>build.bat</code>. Its content is equivalent to the <code>build.sh</code> described before.</p><p>The purpose of <code>build.bat</code> is to invoke <em>RTI DDS Generator</em> (<em>Rtiddsgen</em>) in order to generate the type-code files and <em>Visual Studio</em> solution needed to compile a target architecture. Then execute the <em>Visual Studio</em> solution with the right arguments to generate the executables.</p><p>This script supports the code generation and compilation for <em>Traditional C++</em>, <em>Modern C++</em>, <em>C#</em> and <em>Java</em>.</p><p>The <code>build.bat</code> script should be able to generate and compile code for every <em>Windows</em> architecture supported by <em>Rtiddsgen</em> when the <code>-example</code> command line is specified.</p><h4 id="prerequisites">Prerequisites</h4><ul><li><p><em>RTI Connext DDS</em> should be installed in the system where the <code>build.bat</code> script is going to run. The <em>Target</em> libraries for the platform to be generated should also be installed.</p></li><li><p>The <code>%NDDSHOME%</code> environment variable should be set correctly. Alternatively, <code>%NDDSHOME%</code> can be passed directly to the <code>build.bat</code> script by using the <code>--nddshome &lt;PATH&gt;</code> command line option.</p></li><li><p>The <em>Microsoft Visual Studio</em> for the architecture intended to be built should be installed in your system. The <code>msbuild.exe</code> program should be available in the <code>%PATH%</code> variable. <em>[See note-1]</em></p></li><li><p>Java JDK should be available in the system and accessible from the <code>%PATH%</code> environment. This is not required if the script is set to avoid the Java ByteCode generation by adding the <code>--skip-java-build</code> command line option.</p></li><li><p>If you intend to compile and test using the <em>RTI Secure Plugin</em> you will need to link against the OpenSSL libraries for your architecture.</p></li></ul><p><em>[note-1]:</em> The simplest way to run the <code>build.bat</code> script and ensure that all the <em>Microsoft Visual Studio</em> variables are correctly set is by running it from the <code>Visual Studio Command Prompt</code> provided by each of the <em>Microsoft Visual Studio</em> versions.</p><h4 id="parameters">Parameters</h4><p>The <code>build.bat</code> script accepts the following list of parameters:</p><table class="table"><thead><tr><th style="text-align:right">Parameter</th><th style="text-align:center">Required</th><th>Description</th></tr></thead><tbody><tr><td style="text-align:right">--platform</td><td style="text-align:center">Required</td><td>Architecture/Platform for which build.bat is going to compile <em>RTI Perftest</em>.</td></tr><tr><td style="text-align:right">--nddshome</td><td style="text-align:center">Optional</td><td>Path to the <em>RTI Connext DDS installation</em>. If this parameter is not present, the <code>%NDDSHOME%</code> variable should be.</td></tr><tr><td style="text-align:right">--skip-java-build</td><td style="text-align:center">Optional</td><td>Avoid <code>Java ByteCode</code> generation and <code>.jar</code> creation.</td></tr><tr><td style="text-align:right">--skip-cpp-build</td><td style="text-align:center">Optional</td><td>Avoid C++ code generation and compilation.</td></tr><tr><td style="text-align:right">--skip-cpp03-build</td><td style="text-align:center">Optional</td><td>Avoid C++ New PSM code generation and compilation.</td></tr><tr><td style="text-align:right">--skip-cs-build</td><td style="text-align:center">Optional</td><td>Avoid C# code generation and compilation.</td></tr><tr><td style="text-align:right">--dynamic</td><td style="text-align:center">Optional</td><td>Compile using the RTI Connext DDS dynamic libraries. Default: Static Libraries.</td></tr><tr><td style="text-align:right">--debug</td><td style="text-align:center">Optional</td><td>Compile using the RTI Connext DDS debug libraries. Default: Release Libraries.</td></tr><tr><td style="text-align:right">--secure</td><td style="text-align:center">Optional</td><td>Enable the compilation of the Perfest code specific for security and adds the RTI Connext DDS Security Libraries in the linking step (if compiling statically). Default: Not set.</td></tr><tr><td style="text-align:right">--openssl-home</td><td style="text-align:center">Optional</td><td>Path to the openSSL home directory. Needed when compiling using the --secure option and statically.</td></tr><tr><td style="text-align:right">--msbuild</td><td style="text-align:center">Optional</td><td>Path to the <code>msbuild.exe</code> executable. If this parameter is not present, <code>msbuild</code> variable should be available from your <code>%PATH%</code> variable.</td></tr><tr><td style="text-align:right">--java-home</td><td style="text-align:center">Optional</td><td>Path to the Java <code>JDK</code> home folder. If this parameter is not present, <code>javac</code>, <code>jar</code> and <code>java</code> executables should be available from your <code>%PATH%</code> variable.</td></tr><tr><td style="text-align:right">--clean</td><td style="text-align:center">Optional</td><td>If this option is present, the <code>build.bat</code> script will clean all the generated code and binaries from previous executions.</td></tr><tr><td style="text-align:right">--help -h</td><td style="text-align:center">Optional</td><td>If this option is present, the <code>build.bat</code> script will display a help description and exit.</td></tr></tbody></table><h4 id="examples-running-build-script">Examples Running build script</h4><p>In order to build using <code>build.bat</code> you just need to invoke the script with the command line parameters desired. The following are some typical examples:</p><ul><li><p>Simple generation and compilation for a given architecture (<code>x64Win64VS2012</code>) for C++ (Classic and new) C# and Java.</p><pre><code>  build.bat --platform x64Win64VS2012
+</code></pre></li><li><p>Simple generation and compilation for a given architecture (<code>x64Win64VS2012</code>) just for C#.</p><pre><code>  build.bat --platform x64Win64VS2012 --skip-java-build --skip-cpp-build --skip-cpp03-build
+</code></pre></li><li><p>Generation and compilation for a given architecture (<code>x64Win64VS2012</code>) for all supported languages and linking against the Dynamic + Debug libraries.</p><pre><code>  ./build.sh --platform x64Win64VS2012 --dynamic --debug
+</code></pre></li><li><p>Generation and compilation for a given architecture (<code>x64Win64VS2012</code>) for all supported languages, enabling the security options and linking statically (default).</p><pre><code>  ./build.sh --platform x64Win64VS2012 --secure --openssl-home &lt;PATH&gt;
+</code></pre></li><li><p>Generation and compilation for a given architecture (<code>x64Win64VS2012</code>) for all supported languages, enabling the security options and linking dynamically. As you can see in this case there is no need to specify the <code>--openssl-home</code> command line argument.</p><pre><code>  ./build.sh --platform x64Win64VS2012 --secure --dynamic
+</code></pre></li><li><p><em>RTI Perftest</em> directory clean-up.</p><pre><code>  build.bat --clean
+</code></pre></li></ul></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#1-Code-Generation-And-Compilation">1 Code Generation And Compilation</a></li></ul></div></div></div></div></body></html>
